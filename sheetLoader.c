@@ -1,13 +1,6 @@
-#include <stddef.h>
-
-#include "freexl.h"
+#include "sheetLoader.h"
 
 const void *xls_handler;
-
-struct Worksheet {
-  unsigned int numberOfRows;
-  short unsigned int numberOfColumns;
-};
 
 
 int load_file (const char *file)

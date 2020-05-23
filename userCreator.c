@@ -56,3 +56,27 @@ int set_head_location(struct ColumnHead *head, unsigned int row, unsigned int co
         head->row = row;
         head->column = column;
 }
+
+int get_number_of_users(struct Users usersColumns, unsigned int number_of_rows_in_sheet)
+{
+        FreeXL_CellValue nameValue;
+        FreeXL_CellValue surnameValue;
+        unsigned int nameRow = usersColumns.name.row;
+        unsigned short surnameRow = usersColumns.surname.row;
+        unsigned int number_of_users = 0;
+
+        while(nameRow < number_of_rows_in_sheet && surnameRow < number_of_rows_in_sheet) {
+                ++nameRow;
+                ++surnameRow;
+
+        freexl_get_cell_value(xls_handler, nameRow, usersColumns.name.column, &nameValue);
+        freexl_get_cell_value(xls_handler, surnameRow, usersColumns.surname.column, &surnameValue);
+
+        if(value_is_text(nameValue.type) && value_is_text(nameValue.type))
+                ++number_of_users;
+        else
+                break;
+        }
+
+        return number_of_users;
+}

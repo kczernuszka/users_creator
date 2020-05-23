@@ -80,3 +80,46 @@ int get_number_of_users(struct Users usersColumns, unsigned int number_of_rows_i
 
         return number_of_users;
 }
+
+const char*** get_users_list (struct Users usersColumns, unsigned int number_of_users)
+{
+        FreeXL_CellValue nameValue, surnameValue;
+        unsigned int nameRow = usersColumns.name.row;
+        unsigned short surnameRow = usersColumns.surname.row;
+        const char ***namesList;
+        int i, counter = 1;
+        namesList = (const char***) malloc(2*sizeof(char**));
+        namesList[i] = (const char**) malloc(number_of_users * sizeof(char*));
+
+        for (i = 0; i < number_of_users; ++i) {
+                ++nameRow;
+                ++surnameRow;
+                namesList[0][i] = (char*) malloc(48*sizeof(char));
+                namesList[1][i] = (char*) malloc(27*sizeof(char));
+
+                freexl_get_cell_value(xls_handler, nameRow, usersColumns.name.column, &nameValue);
+                freexl_get_cell_value(xls_handler, surnameRow, usersColumns.surname.column, &surnameValue);
+
+                if (strlen((char*) nameValue.value.text_value) < 21 && 
+                    strlen((char*) surnameValue.value.text_value) < 28 && 
+                     chars_are_allowed(nameValue.value.text_value) &&
+                      chars_are_allowed(surnameValue.value.text_value)) {
+                        namesList[0][i] = nameValue.value.text_value;
+                        namesList[1][i] = surnameValue.value.text_value;
+                }
+                ++counter;
+        }
+        return namesList;
+}
+
+int chars_are_allowed(const char *text)
+{
+        const char *pointer = text;
+        while (*pointer != '\0') {
+                if (!isalpha(*pointer)){
+                        return -1;
+                }
+                pointer++;
+        }
+        return 0;
+}

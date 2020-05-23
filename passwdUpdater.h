@@ -5,11 +5,11 @@
 #include<stdio.h>
 #include<stdlib.h>
 
+#define PASSWORD_LENGTH 8
 #define _S(x)	x ?: ""
 
 struct User {
     char* login;
-    char* password;
     unsigned int uid;
     unsigned int gid;
     char *name;
@@ -19,5 +19,6 @@ struct User {
 
 int putpwent (const struct passwd *passwd, FILE *stream);
 int passwd_update (struct User user, FILE *passwd_file, FILE *master_file);
+void create_random_string(char *random_string, size_t length);
 
 #endif // PASSWDUPDATER_H_

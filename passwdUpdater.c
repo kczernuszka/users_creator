@@ -20,9 +20,11 @@ int putpwent (const struct passwd *passwd, FILE *stream)
 int passwd_update (struct User user, FILE *passwd_file, FILE *master_file)
 {
         struct passwd *p = (struct passwd*) malloc(sizeof(struct passwd));
+        char password[PASSWORD_LENGTH];
+        create_random_string(password, PASSWORD_LENGTH);
 
         p->pw_name = user.login;
-        p->pw_passwd = user.password;
+        p->pw_passwd = password;
         p->pw_uid = user.uid;
         p->pw_gid = user.gid;
         p->pw_gecos = user.name;
@@ -35,4 +37,17 @@ int passwd_update (struct User user, FILE *passwd_file, FILE *master_file)
         }
 
         return 0;
+}
+
+void create_random_string(char *random_string, size_t length) 
+{
+        char charset[] = "0123456789"
+                   "abcdefghijklmnopqrstuvwxyz"
+                   "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+        while (length-- > 0) {
+                size_t index = (double) rand() / RAND_MAX * (sizeof charset - 1);
+                *random_string++ = charset[index];
+        }
+        *random_string = '\0';
 }

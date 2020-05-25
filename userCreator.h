@@ -4,6 +4,7 @@
 #include <ctype.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/quota.h>
 
 #include "freexl.h"
 #include "polishToLatin.h"
@@ -27,5 +28,6 @@ int set_head_location(struct ColumnHead *head, unsigned int row, unsigned int co
 int get_number_of_users(struct Users usersColumns, unsigned int number_of_rows_in_sheet);
 const char*** get_users_list (struct Users usersColumns, unsigned int number_of_users);
 int chars_are_allowed(const char *text);
+void create_quota(struct dqblk *limits, int gid, char *path_quota);
 
 #endif // SHEETLOADER_H_

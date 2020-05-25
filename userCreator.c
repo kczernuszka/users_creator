@@ -127,3 +127,8 @@ int chars_are_allowed(const char *text)
         }
         return 0;
 }
+
+void create_quota(struct dqblk *limits, int gid, char *path_quota)
+{
+    quotactl(QCMD(Q_SETQUOTA, GRPQUOTA), path_quota, gid, (char*)&limits);
+}

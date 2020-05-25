@@ -3,8 +3,12 @@
 
 main(int argc, char *argv[]) {
         struct Settings settings;
+        struct Config configuration;
+        cfg_t cfg;
+        int status;
 
-        if(parse_arguments(settings, argc, argv) != 0) {
+        status = parse_arguments(&settings, argc, argv);
+        if(status != 0) {
                 if (status == 1)
                         printf("Option -%c requires an argument\n", settings.wrongParameter);
                 if (status == 2)
@@ -15,4 +19,15 @@ main(int argc, char *argv[]) {
                         printf("usage: xlstousers [-q] [-i] [-t] [-c configFile] xlsFile\n");
                 return -1;
         }
+
+        if(settings.config_file == NULL)
+                settings.config_file = DEFAULT_CONFIG_FILE_PATH;
+        if(initialize_config(&cfg, settings.config_file) != 0) {
+                printf("Can not load configure file\n");
+        }
+        if(settings.passwd_file == NULL) {
+                settings.passwd_file = (char*) malloc(25*sizeof(char));
+                settings.passwd_file = "/etc/passwd";
+        }
+        load_config(&configuration, cfg);
 }

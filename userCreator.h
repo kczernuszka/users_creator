@@ -5,8 +5,9 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "sheetLoader.h"
 #include "freexl.h"
+#include "polishToLatin.h"
+#include "sheetLoader.h"
 
 struct ColumnHead {
         char *text;

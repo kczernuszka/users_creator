@@ -11,6 +11,6 @@ struct Worksheet {
 };
 
 int load_file (const char *file);
-const char* select_worksheet (struct Worksheet dimensions, unsigned int idx);
+const char* select_worksheet (struct Worksheet *dimensions, unsigned int idx);
 
 #endif // SHEETLOADER_H_

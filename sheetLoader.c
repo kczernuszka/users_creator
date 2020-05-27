@@ -17,14 +17,14 @@ int load_file (const char *file)
 }
 
 
-const char* select_worksheet (struct Worksheet dimensions, unsigned int idx)
+const char* select_worksheet (struct Worksheet *dimensions, unsigned int idx)
 {
         const char* worksheetName;
 
         if (freexl_select_active_worksheet(xls_handler, idx) != FREEXL_OK)
                 return NULL;
 
-        if (freexl_worksheet_dimensions(xls_handler, &dimensions.numberOfRows, &dimensions.numberOfColumns) !=
+        if (freexl_worksheet_dimensions(xls_handler, &dimensions->numberOfRows, &dimensions->numberOfColumns) !=
             FREEXL_OK)
                 return NULL;
 

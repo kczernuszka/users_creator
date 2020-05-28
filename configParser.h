@@ -2,6 +2,7 @@
 #define CONFIGPARSER_H_
 
 #include <confuse.h>
+#include <time.h>
 
 #include "userCreator.h"
 
@@ -52,14 +53,14 @@ struct UserSettings {
 struct Config {
         char *column_name;
         char *column_surname;
-        char *password_length;
+        unsigned int password_length;
         struct UidsRange uidsRange;
         struct UserSettings user;
         struct QuotaSettings quota;
 };
 
 int initialize_config (cfg_t *cfg, char *config_file);
-void load_config (struct Config *configuration, cfg_t cfg);
+void load_config (struct Config *configuration, cfg_t *cfg);
 int get_real_time_value (unsigned long seconds);
 
 #endif // CONFIGPARSER_H_

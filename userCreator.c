@@ -88,6 +88,7 @@ const char*** get_users_list (struct Users usersColumns, unsigned int number_of_
         unsigned int nameRow = usersColumns.name.row;
         unsigned short surnameRow = usersColumns.surname.row;
         const char ***namesList;
+        char *name, *surname;
         int i, counter = 1;
         namesList = (const char***) malloc(2*sizeof(char**));
         namesList[i] = (const char**) malloc(number_of_users * sizeof(char*));
@@ -105,11 +106,15 @@ const char*** get_users_list (struct Users usersColumns, unsigned int number_of_
                     strlen((char*) surnameValue.value.text_value) < 28 && 
                      chars_are_allowed(nameValue.value.text_value) &&
                       chars_are_allowed(surnameValue.value.text_value)) {
-
-                        polish_letters_to_latin(nameValue.value.text_value);
-                        polish_letters_to_latin(surnameValue.value.text_value);
-                        namesList[0][i] = nameValue.value.text_value;
-                        namesList[1][i] = surnameValue.value.text_value;
+                        
+                        name = (char*) malloc(sizeof(nameValue.value.text_value));
+                        surname = (char*) malloc(sizeof(surnameValue.value.text_value));
+                        strncpy(name, nameValue.value.text_value, sizeof(nameValue.value.text_value));
+                        strncpy(surname, surnameValue.value.text_value, sizeof(surnameValue.value.text_value));
+                        polish_letters_to_latin(name);
+                        polish_letters_to_latin(surname);
+                        namesList[0][i] = name;
+                        namesList[1][i] = surname;
                 }
                 ++counter;
         }

@@ -1,8 +1,10 @@
 #ifndef ARGUMENTSPARSER_H_
 #define ARGUMENTSPARSER_H_
 
+#include<ctype.h>
 #include<getopt.h>
 #include<stddef.h>
+#include<stdlib.h>
 
 struct Settings {
         int interactive_mode;

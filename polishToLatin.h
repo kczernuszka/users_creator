@@ -3,6 +3,6 @@
 
 #include<string.h>
 
-int polish_letters_to_latin(const char* text);
+int polish_letters_to_latin(char* text);
 
 #endif // POLISHTOLATIN_H_

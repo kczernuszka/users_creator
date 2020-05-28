@@ -1,6 +1,6 @@
 #include "polishToLatin.h"
 
-int polish_letters_to_latin(const char* text)
+int polish_letters_to_latin(char* text)
 {
         char *p = text;
         int i, idxToDel = 1;

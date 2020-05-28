@@ -1,10 +1,30 @@
 #include "configParser.h"
 
-extern cfg_opt_t opts[];
-
 int initialize_config (cfg_t *cfg, char *config_file)
 {
-        cfg = cfg_init(opts, CFGF_NONE);
+        cfg_opt_t options[] =
+        {
+                CFG_STR("COLUMN_NAME", "Imie", CFGF_NONE),
+                CFG_STR("COLUMN_SURNAME", "Nazwisko", CFGF_NONE),
+                CFG_INT("PASSWORD_LEN", 8, CFGF_NONE),
+                CFG_INT("MIN_UID", 1001, CFGF_NONE),
+                CFG_INT("MAX_UID", 10000, CFGF_NONE),
+                CFG_INT("GID", 10, CFGF_NONE),
+                CFG_STR("HOME", "/home/", CFGF_NONE),
+                CFG_INT("CHANGE", 0, CFGF_NONE),
+                CFG_STR("CLASS", "staff", CFGF_NONE),
+                CFG_STR("SHELL", "/bin/ksh", CFGF_NONE),
+                CFG_INT("EXPIRE", 0, CFGF_NONE),
+                CFG_INT("BLOCKS_HARD_LIMIT", 0, CFGF_NONE),
+                CFG_INT("BLOCKS_SOFT_LIMIT", 0, CFGF_NONE),
+                CFG_INT("INODES_HARD_LIMIT", 0, CFGF_NONE),
+                CFG_INT("INODES_SOFT_LIMIT", 0, CFGF_NONE),
+                CFG_INT("BLOCKS_TIME", 0, CFGF_NONE),
+                CFG_INT("INODES_TIME", 0, CFGF_NONE),
+                CFG_STR("PATH_QUOTA", "/home/", CFGF_NONE),
+                CFG_END()
+        };
+        cfg = cfg_init(options, CFGF_NONE);
         if (cfg_parse(cfg, config_file) == CFG_PARSE_ERROR) {
                 return -1;
         }

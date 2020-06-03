@@ -37,7 +37,7 @@ struct Config {
 };
 
 int initialize_config (cfg_t *cfg, char *config_file);
-void load_config (struct Config *configuration, cfg_t *cfg);
+struct Config* load_config (cfg_t *cfg);
 int get_real_time_value (unsigned long seconds);
 
 #endif // CONFIGPARSER_H_

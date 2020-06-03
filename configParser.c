@@ -25,23 +25,28 @@ int initialize_config (cfg_t *cfg, char *config_file)
                 CFG_END()
         };
         cfg = cfg_init(options, CFGF_NONE);
-        if (cfg_parse(cfg, config_file) == CFG_PARSE_ERROR) {
+        if (cfg_parse(cfg, config_file) == CFG_PARSE_ERROR)
                 return -1;
-        }
         return 0;
 }
 
-void load_config (struct Config *configuration, cfg_t *cfg)
+struct Config* load_config (cfg_t *cfg)
 {
+        struct Config *configuration = (struct Config*) malloc(sizeof(struct Config));
+        configuration->column_name = (char*) malloc(strlen(cfg_getstr(cfg, "COLUMN_NAME")) * sizeof(char));
         configuration->column_name = cfg_getstr(cfg, "COLUMN_NAME");
+        configuration->column_surname = (char*) malloc(strlen(cfg_getstr(cfg, "COLUMN_SURNAME")) * sizeof(char));
         configuration->column_surname = cfg_getstr(cfg, "COLUMN_SURNAME");
         configuration->password_length = cfg_getint(cfg, "PASSWORD_LEN");
         configuration->uidsRange.min_uid = cfg_getint(cfg, "MIN_UID");
         configuration->uidsRange.max_uid = cfg_getint(cfg, "MAX_UID");
         configuration->user.gid = cfg_getint(cfg, "GID");
+        configuration->user.home = (char*) malloc(strlen(cfg_getstr(cfg, "HOME")) * sizeof(char));
         configuration->user.home = cfg_getstr(cfg, "HOME");
         configuration->user.change = get_real_time_value(cfg_getint(cfg, "CHANGE"));
+        configuration->user.class_group = (char*) malloc(strlen(cfg_getstr(cfg, "CLASS")) * sizeof(char));
         configuration->user.class_group = cfg_getstr(cfg, "CLASS");
+        configuration->user.shell = (char*) malloc(strlen(cfg_getstr(cfg, "SHELL")) * sizeof(char));
         configuration->user.shell = cfg_getstr(cfg, "SHELL");
         configuration->user.expire = get_real_time_value(cfg_getint(cfg, "EXPIRE"));
         configuration->quota.limits.dqb_bhardlimit = cfg_getint(cfg, "BLOCKS_HARD_LIMIT");
@@ -50,13 +55,15 @@ void load_config (struct Config *configuration, cfg_t *cfg)
         configuration->quota.limits.dqb_isoftlimit = cfg_getint(cfg, "INODES_SOFT_LIMIT");
         configuration->quota.limits.dqb_btime = cfg_getint(cfg, "BLOCKS_TIME");
         configuration->quota.limits.dqb_itime = cfg_getint(cfg, "INODES_TIME");
+        configuration->quota.path_quota = (char*) malloc(strlen(cfg_getstr(cfg, "PATH_QUOTA")) * sizeof(char));
         configuration->quota.path_quota = cfg_getstr(cfg, "PATH_QUOTA");
+
+        return configuration;
 }
 
 int get_real_time_value (unsigned long seconds)
 {
-        time_t currentTime;
-        time(&currentTime);
+        unsigned long currentTime = time(NULL);
 
         if(seconds)
                 return seconds += (unsigned long) currentTime;

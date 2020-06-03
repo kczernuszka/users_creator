@@ -5,7 +5,7 @@
 
 int main(int argc, char *argv[]) {
         struct Settings settings;
-        struct Config configuration;
+        struct Config *configuration;
         struct Worksheet dimensions;
         struct Users users;
         cfg_t cfg;
@@ -41,7 +41,7 @@ int main(int argc, char *argv[]) {
                 settings.passwd_file = (char*) malloc(25*sizeof(char));
                 settings.passwd_file = "/etc/passwd";
         }
-        load_config(&configuration, cfg);
+        configuration = load_config(cfg);
 
         users.name.text = configuration.column_name;
         users.surname.text = configuration.column_surname;

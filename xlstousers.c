@@ -8,7 +8,7 @@ int main(int argc, char *argv[]) {
         struct Config *configuration;
         struct Worksheet dimensions;
         struct Users users;
-        cfg_t cfg;
+        cfg_t *cfg;
         int status;
         int numberOfSheet;
         int sheetCounter;
@@ -33,7 +33,7 @@ int main(int argc, char *argv[]) {
 
         if(settings.config_file == NULL)
                 settings.config_file = DEFAULT_CONFIG_FILE_PATH;
-        if(initialize_config(&cfg, settings.config_file) != 0) {
+        if((cfg = initialize_config(settings.config_file)) == NULL) {
                 printf("Can not load configure file\n");
                 return -1;
         }

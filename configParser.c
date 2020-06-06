@@ -1,6 +1,6 @@
 #include "configParser.h"
 
-int initialize_config (cfg_t *cfg, char *config_file)
+cfg_t* initialize_config (char *config_file)
 {
         cfg_opt_t options[] =
         {
@@ -24,10 +24,11 @@ int initialize_config (cfg_t *cfg, char *config_file)
                 CFG_STR("PATH_QUOTA", "/home/", CFGF_NONE),
                 CFG_END()
         };
-        cfg = cfg_init(options, CFGF_NONE);
-        if (cfg_parse(cfg, config_file) == CFG_PARSE_ERROR)
-                return -1;
-        return 0;
+        cfg_t *cfg = cfg_init(options, CFGF_NONE);
+        if (cfg_parse(cfg, config_file) != CFG_SUCCESS) {
+                return NULL;
+        }
+        return cfg;
 }
 
 struct Config* load_config (cfg_t *cfg)

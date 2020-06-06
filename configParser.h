@@ -36,7 +36,7 @@ struct Config {
         struct QuotaSettings quota;
 };
 
-int initialize_config (cfg_t *cfg, char *config_file);
+cfg_t* initialize_config (char *config_file);
 struct Config* load_config (cfg_t *cfg);
 int get_real_time_value (unsigned long seconds);
 

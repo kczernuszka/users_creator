@@ -64,7 +64,7 @@ int main(int argc, char *argv[]) {
                         if (set_columns_heads_location(&users, dimensions, xls_handler) != 0) {
                                 if ((numberOfUsers = get_number_of_users(users, dimensions.numberOfRows,
                                      xls_handler)) != 0)
-                                        namesList = get_users_list(users, numberOfUsers, xls_handler);
+                                        namesList = (const char***) get_users_list(users, numberOfUsers, xls_handler);
                                 else {
                                         printf("Not found values in columns %s and %s\n",
                                                 users.name.text, users.surname.text);

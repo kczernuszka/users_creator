@@ -87,7 +87,7 @@ char*** get_users_list (struct Users usersColumns, unsigned int number_of_users,
         FreeXL_CellValue nameValue, surnameValue;
         unsigned int nameRow = usersColumns.name.row;
         unsigned short surnameRow = usersColumns.surname.row;
-        const char ***namesList;
+        char ***namesList;
         char *name, *surname;
         int i, counter = 1;
         namesList = (char***) malloc(2*sizeof(char**));

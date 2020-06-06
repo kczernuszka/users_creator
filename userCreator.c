@@ -66,9 +66,7 @@ int get_number_of_users(struct Users usersColumns, unsigned int number_of_rows_i
         unsigned short surnameRow = usersColumns.surname.row;
         unsigned int number_of_users = 0;
 
-        while(nameRow < number_of_rows_in_sheet && surnameRow < number_of_rows_in_sheet) {
-                ++nameRow;
-                ++surnameRow;
+        while(++nameRow < number_of_rows_in_sheet && ++surnameRow < number_of_rows_in_sheet) {
 
         freexl_get_cell_value(xls_handler, nameRow, usersColumns.name.column, &nameValue);
         freexl_get_cell_value(xls_handler, surnameRow, usersColumns.surname.column, &surnameValue);

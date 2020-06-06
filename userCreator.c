@@ -16,7 +16,7 @@ int set_columns_heads_location (struct Users *usersColumns, struct Worksheet dim
 
                         freexl_get_cell_value(xls_handler, row, column, &cellValue);
                         stringInCell = (char*)cellValue.value.text_value;
-                        polish_letters_to_latin(stringInCell);
+                        stringInCell = polish_letters_to_latin(stringInCell);
 
                         if (value_is_text(cellValue.type)) {
                                 if (is_column_head(usersColumns->name.text, stringInCell)) {
@@ -108,8 +108,8 @@ char*** get_users_list (struct Users usersColumns, unsigned int number_of_users,
                      chars_are_allowed(nameValue.value.text_value) &&
                       chars_are_allowed(surnameValue.value.text_value)) {
                         
-                        strcpy(namesList[0][i], nameValue.value.text_value);
-                        strcpy(namesList[1][i], surnameValue.value.text_value);
+                        strcpy(namesList[0][i], polish_letters_to_latin(nameValue.value.text_value));
+                        strcpy(namesList[1][i], polish_letters_to_latin(surnameValue.value.text_value));
                 }
                 ++counter;
         }

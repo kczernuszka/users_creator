@@ -1,8 +1,10 @@
 #include "polishToLatin.h"
 
-int polish_letters_to_latin(char* text)
+char* polish_letters_to_latin(const char* text)
 {
-        char *p = text;
+        char *newText = (char*) malloc(strlen(text) + 1);
+        strncpy(newText, text, sizeof(text));
+        char *p = newText;
         int i, idxToDel = 1;
 
         while (*p != '\0') {
@@ -20,10 +22,8 @@ int polish_letters_to_latin(char* text)
                                 case -172: *p = 'A'; break;
                                 case -170: *p = 'C'; break;
                                 case -152: *p = 'E'; break;
-
-                                default: return -1;
                         }
-                        memmove(&text[idxToDel], &text[idxToDel + 1], strlen(text) - idxToDel);
+                        memmove(&newText[idxToDel], &newText[idxToDel + 1], strlen(newText) - idxToDel);
                 }
 
                 else if (i == -107) {
@@ -45,10 +45,8 @@ int polish_letters_to_latin(char* text)
 
                                 case -119:
                                 case -117: *p = 'Z'; break;
-
-                                default: return -1;
                         }
-                        memmove(&text[idxToDel], &text[idxToDel + 1], strlen(text) - idxToDel);
+                        memmove(&newText[idxToDel], &newText[idxToDel + 1], strlen(newText) - idxToDel);
                 }
 
                 else if (i == -109) {
@@ -58,14 +56,12 @@ int polish_letters_to_latin(char* text)
                         switch(i) {
                                 case -125: *p = 'o'; break;
                                 case -157: *p = 'O'; break;
-                                
-                                default: return -1;
                         }
-                        memmove(&text[idxToDel], &text[idxToDel + 1], strlen(text) - idxToDel);
+                        memmove(&newText[idxToDel], &newText[idxToDel + 1], strlen(newText) - idxToDel);
                 }
 
                 ++idxToDel;
                 ++p; 
         }
-        return 0;
+        return newText;
 }

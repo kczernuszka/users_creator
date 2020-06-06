@@ -1,5 +1,6 @@
 #include "argumentsParser.h"
 #include "configParser.h"
+#include "passwdUpdater.h"
 #include "sheetLoader.h"
 #include "userCreator.h"
 
@@ -18,6 +19,9 @@ int main(int argc, char *argv[]) {
         int numberOfUsers;
         const char ***namesList;
         const void *xls_handler;
+        unsigned int userCounter;
+        char *login;
+        char *home;
 
         status = parse_arguments(&settings, argc, argv);
         if(status != 0) {
@@ -76,6 +80,12 @@ int main(int argc, char *argv[]) {
                         printf("Sheet number %d can not be loaded\n", sheetCounter);
                         return -1;
                 }
+        }
+
+        for (userCounter = 0; userCounter < numberOfUsers; ++userCounter) {
+                login = create_user_login(namesList[0][userCounter], namesList[1][userCounter]);
+                home = create_home_directory(configuration->user.home, login);
+                printf("login: %s  home: %s", login, home);
         }
 
 }

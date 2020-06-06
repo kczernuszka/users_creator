@@ -39,6 +39,26 @@ int passwd_update (struct User user, FILE *passwd_file, FILE *master_file)
         return 0;
 }
 
+char* create_user_login(const char *name, const char *surname)
+{
+        char *login = (char*) malloc(LOGIN_LENGTH * sizeof(char));
+        strncat(login, name, 1);
+        strcat(login, ".");
+        strcat(login, surname);
+        
+        return login;
+}
+
+char* create_home_directory(const char *home, const char *login)
+{
+        char *home_path = (char*) malloc(HOME_PATH_LENGTH * sizeof(char));
+        strcpy(home_path, home);
+        strcat(home_path, "/");
+        strcat(home_path, login);
+
+        return home_path;
+}
+
 void create_random_string(char *random_string, size_t length) 
 {
         char charset[] = "0123456789"

@@ -32,14 +32,16 @@ int main(int argc, char *argv[]) {
                 return -1;
         }
 
-        if(settings.config_file == NULL)
+        if(settings.config_file == NULL) {
+                settings.config_file = (char*) malloc(strlen(DEFAULT_CONFIG_FILE_PATH) * sizeof(char));
                 settings.config_file = DEFAULT_CONFIG_FILE_PATH;
+        }
         if((cfg = initialize_config(settings.config_file)) == NULL) {
                 printf("Can not load configure file\n");
                 return -1;
         }
         if(settings.passwd_file == NULL) {
-                settings.passwd_file = (char*) malloc(25*sizeof(char));
+                settings.passwd_file = (char*) malloc(strlen("/etc/passwd") * sizeof(char));
                 settings.passwd_file = "/etc/passwd";
         }
         configuration = load_config(cfg);

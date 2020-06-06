@@ -90,14 +90,15 @@ char*** get_users_list (struct Users usersColumns, unsigned int number_of_users,
         const char ***namesList;
         char *name, *surname;
         int i, counter = 1;
-        namesList = (const char***) malloc(2*sizeof(char**));
-        namesList[i] = (const char**) malloc(number_of_users * sizeof(char*));
+        namesList = (char***) malloc(2*sizeof(char**));
+        namesList[0] = (char**) malloc(48 * number_of_users * sizeof(char*));
+        namesList[1] = (char**) malloc(48 * number_of_users * sizeof(char*));
 
         for (i = 0; i < number_of_users; ++i) {
                 ++nameRow;
                 ++surnameRow;
-                namesList[0][i] = (char*) malloc(48*sizeof(char));
-                namesList[1][i] = (char*) malloc(27*sizeof(char));
+		namesList[0][i] = (char*) malloc(48 * sizeof(char));
+                namesList[1][i] = (char*) malloc(48 * sizeof(char));
 
                 freexl_get_cell_value(xls_handler, nameRow, usersColumns.name.column, &nameValue);
                 freexl_get_cell_value(xls_handler, surnameRow, usersColumns.surname.column, &surnameValue);
@@ -107,14 +108,8 @@ char*** get_users_list (struct Users usersColumns, unsigned int number_of_users,
                      chars_are_allowed(nameValue.value.text_value) &&
                       chars_are_allowed(surnameValue.value.text_value)) {
                         
-                        name = (char*) malloc(sizeof(nameValue.value.text_value));
-                        surname = (char*) malloc(sizeof(surnameValue.value.text_value));
-                        strncpy(name, nameValue.value.text_value, sizeof(nameValue.value.text_value));
-                        strncpy(surname, surnameValue.value.text_value, sizeof(surnameValue.value.text_value));
-                        polish_letters_to_latin(name);
-                        polish_letters_to_latin(surname);
-                        namesList[0][i] = name;
-                        namesList[1][i] = surname;
+                        strcpy(namesList[0][i], nameValue.value.text_value);
+                        strcpy(namesList[1][i], surnameValue.value.text_value);
                 }
                 ++counter;
         }

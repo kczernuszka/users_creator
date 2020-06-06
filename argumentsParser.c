@@ -29,18 +29,20 @@ int parse_arguments (struct Settings *settings, int argc, char *argv[])
                                 break;
                         case '?':
                                 settings->wrongParameter = optopt;
-	                            if(optopt == 'c')
+                                if(optopt == 'c')
                                         return 1;
                                 else if(isprint(optopt))
                                         return 2;
                                 else
                                         return 3;
-                                default:
-                                        abort();
+                                break;
+                        default:
+                                abort();
                 }
         }
         if(ctargc != argc)
                 return 4;
         if(argc == 1)
                 return 4;
+        return 0;
 }

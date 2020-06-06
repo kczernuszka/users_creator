@@ -2,7 +2,7 @@
 
 extern const void *xls_handler;
 
-int set_columns_heads_location (struct Users *usersColumns, struct Worksheet dimensions)
+int set_columns_heads_location (struct Users *usersColumns, struct Worksheet dimensions, const void *xls_handler)
 {
         FreeXL_CellValue cellValue;
         char *stringInCell;
@@ -58,7 +58,7 @@ int set_head_location(struct ColumnHead *head, unsigned int row, unsigned int co
         head->column = column;
 }
 
-int get_number_of_users(struct Users usersColumns, unsigned int number_of_rows_in_sheet)
+int get_number_of_users(struct Users usersColumns, unsigned int number_of_rows_in_sheet, const void *xls_handler)
 {
         FreeXL_CellValue nameValue;
         FreeXL_CellValue surnameValue;
@@ -82,7 +82,7 @@ int get_number_of_users(struct Users usersColumns, unsigned int number_of_rows_i
         return number_of_users;
 }
 
-const char*** get_users_list (struct Users usersColumns, unsigned int number_of_users)
+char*** get_users_list (struct Users usersColumns, unsigned int number_of_users, const void *xls_handler)
 {
         FreeXL_CellValue nameValue, surnameValue;
         unsigned int nameRow = usersColumns.name.row;

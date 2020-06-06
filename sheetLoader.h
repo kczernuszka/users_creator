@@ -10,7 +10,7 @@ struct Worksheet {
         short unsigned int numberOfColumns;
 };
 
-int load_file (const char *file);
-const char* select_worksheet (struct Worksheet *dimensions, unsigned int idx);
+int load_file (const char *file, const void **xls_handler);
+const char* select_worksheet (struct Worksheet *dimensions, unsigned int idx, const void *xls_handler);
 
 #endif // SHEETLOADER_H_

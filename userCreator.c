@@ -30,8 +30,8 @@ int set_columns_heads_location (struct Users *usersColumns, struct Worksheet dim
                         }
                 }
         }
-        if (nameColumnFound|| surnameColumnFound)
-                return -1;
+        if (nameColumnFound && surnameColumnFound)
+                return 1;
         else
                 return 0;
 }
@@ -126,11 +126,11 @@ int chars_are_allowed(const char *text)
         const char *pointer = text;
         while (*pointer != '\0') {
                 if (!isalpha(*pointer)){
-                        return -1;
+                        return 0;
                 }
                 pointer++;
         }
-        return 0;
+        return 1;
 }
 
 void create_quota(struct dqblk *limits, int gid, char *path_quota)

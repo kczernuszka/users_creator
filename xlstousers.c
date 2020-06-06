@@ -55,7 +55,7 @@ int main(int argc, char *argv[]) {
         for (sheetCounter = 0; sheetCounter < numberOfSheet; ++sheetCounter) {
                 sheetName = select_worksheet(&dimensions, sheetCounter, xls_handler);
                 if (sheetName != NULL) {
-                        if (set_columns_heads_location(&users, dimensions, xls_handler) != -1) {
+                        if (set_columns_heads_location(&users, dimensions, xls_handler) != 0) {
                                 if ((numberOfUsers = get_number_of_users(users, dimensions.numberOfRows,
                                      xls_handler)) != 0)
                                         namesList = get_users_list(users, numberOfUsers, xls_handler);

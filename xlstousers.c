@@ -58,16 +58,20 @@ int main(int argc, char *argv[]) {
                         if (set_columns_heads_location(&users, dimensions) != -1) {
                                 if ((numberOfUsers = get_number_of_users(users, dimensions.numberOfRows)) != 0)
                                         namesList = get_users_list(users, numberOfUsers);
-                                else
+                                else {
                                         printf("Not found values in columns %s and %s\n",
                                                 users.name.text, users.surname.text);
+                                        return -1;
+                                }
                         }
                         else {
                                 printf("Not found columns %s and %s", users.name.text, users.surname.text);
+                                return -1;
                         }
                 }
                 else {
                         printf("Sheet number %d can not be loaded\n", sheetCounter);
+                        return -1;
                 }
         }
 

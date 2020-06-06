@@ -17,17 +17,17 @@ struct ColumnHead {
         unsigned short column;
 };
 
-struct Users {
+struct Headers {
         struct ColumnHead name;
         struct ColumnHead surname;
 };
 
-int set_columns_heads_location(struct Users *usersColumns, struct Worksheet dimensions, const void *xls_handler);
+int set_columns_heads_location(struct Headers *usersColumns, struct Worksheet dimensions, const void *xls_handler);
 int value_is_text(unsigned char type);
 int is_column_head(char *columnHead, char *stringInCell);
 int set_head_location(struct ColumnHead *head, unsigned int row, unsigned int column);
-int get_number_of_users(struct Users usersColumns, unsigned int number_of_rows_in_sheet, const void *xls_handler);
-char*** get_users_list (struct Users usersColumns, unsigned int number_of_users, const void *xls_handler);
+int get_number_of_users(struct Headers usersColumns, unsigned int number_of_rows_in_sheet, const void *xls_handler);
+char*** get_users_list (struct Headers usersColumns, unsigned int number_of_users, const void *xls_handler);
 int chars_are_allowed(const char *text);
 void create_quota(struct dqblk *limits, int gid, char *path_quota);
 

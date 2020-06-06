@@ -8,7 +8,7 @@ int main(int argc, char *argv[]) {
         struct Settings settings;
         struct Config *configuration;
         struct Worksheet dimensions;
-        struct Users users;
+        struct Headers headers;
         cfg_t *cfg;
         int status;
         int numberOfSheet;
@@ -50,8 +50,8 @@ int main(int argc, char *argv[]) {
         }
         configuration = load_config(cfg);
 
-        strcpy(users.name.text, configuration->column_name);
-        strcpy(users.surname.text, configuration->column_surname);
+        strcpy(headers.name.text, configuration->column_name);
+        strcpy(headers.surname.text, configuration->column_surname);
 
         if ((numberOfSheet = load_file(argv[optind], &xls_handler)) == -1) {
                 printf("%s: File can not be loaded\n", argv[0]);
@@ -61,20 +61,20 @@ int main(int argc, char *argv[]) {
         for (sheetCounter = 0; sheetCounter < numberOfSheet; ++sheetCounter) {
                 sheetName = select_worksheet(&dimensions, sheetCounter, xls_handler);
                 if (sheetName != NULL) {
-                        if (set_columns_heads_location(&users, dimensions, xls_handler) == 1) {
-                                if ((numberOfUsers = get_number_of_users(users, dimensions.numberOfRows,
+                        if (set_columns_heads_location(&headers, dimensions, xls_handler) == 1) {
+                                if ((numberOfUsers = get_number_of_users(headers, dimensions.numberOfRows,
                                      xls_handler)) != 0) {
-                                        namesList = (const char***) get_users_list(users, numberOfUsers, xls_handler);
+                                        namesList = (const char***) get_users_list(headers, numberOfUsers, xls_handler);
                                         break;
                                 }
                                 else {
                                         printf("Not found values in columns %s and %s\n",
-                                                users.name.text, users.surname.text);
+                                                headers.name.text, headers.surname.text);
                                         return -1;
                                 }
                         }
                         else {
-                                printf("Not found columns %s and %s", users.name.text, users.surname.text);
+                                printf("Not found columns %s and %s", headers.name.text, headers.surname.text);
                                 return -1;
                         }
                 }

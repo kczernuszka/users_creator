@@ -56,7 +56,7 @@ int main(int argc, char *argv[]) {
                 sheetName = select_worksheet(&dimensions, sheetCounter);
                 if (sheetName != NULL) {
                         if (set_columns_heads_location(&users, dimensions) != -1) {
-                                if (numberOfUsers = get_number_of_users(users, dimensions.numberOfRows) != 0)
+                                if ((numberOfUsers = get_number_of_users(users, dimensions.numberOfRows)) != 0)
                                         namesList = get_users_list(users, numberOfUsers);
                                 else
                                         printf("Not found values in columns %s and %s\n",

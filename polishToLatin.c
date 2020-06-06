@@ -3,7 +3,7 @@
 char* polish_letters_to_latin(const char* text)
 {
         char *newText = (char*) malloc(strlen(text) + 1);
-        strncpy(newText, text, sizeof(text));
+        strcpy(newText, text);
         char *p = newText;
         int i, idxToDel = 1;
 

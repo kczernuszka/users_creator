@@ -34,21 +34,16 @@ cfg_t* initialize_config (char *config_file)
 struct Config* load_config (cfg_t *cfg)
 {
         struct Config *configuration = (struct Config*) malloc(sizeof(struct Config));
-        configuration->column_name = (char*) malloc(strlen(cfg_getstr(cfg, "COLUMN_NAME")) * sizeof(char));
-        configuration->column_name = cfg_getstr(cfg, "COLUMN_NAME");
-        configuration->column_surname = (char*) malloc(strlen(cfg_getstr(cfg, "COLUMN_SURNAME")) * sizeof(char));
-        configuration->column_surname = cfg_getstr(cfg, "COLUMN_SURNAME");
+        strncpy(configuration->column_name, cfg_getstr(cfg, "COLUMN_NAME"), HEADER_LENGTH);
+        strncpy(configuration->column_surname, cfg_getstr(cfg, "COLUMN_SURNAME"), HEADER_LENGTH);
         configuration->password_length = cfg_getint(cfg, "PASSWORD_LEN");
         configuration->uidsRange.min_uid = cfg_getint(cfg, "MIN_UID");
         configuration->uidsRange.max_uid = cfg_getint(cfg, "MAX_UID");
         configuration->user.gid = cfg_getint(cfg, "GID");
-        configuration->user.home = (char*) malloc(strlen(cfg_getstr(cfg, "HOME")) * sizeof(char));
-        configuration->user.home = cfg_getstr(cfg, "HOME");
+        strncpy(configuration->user.home, cfg_getstr(cfg, "HOME"), HOME_PATH_LENGTH);
         configuration->user.change = get_real_time_value(cfg_getint(cfg, "CHANGE"));
-        configuration->user.class_group = (char*) malloc(strlen(cfg_getstr(cfg, "CLASS")) * sizeof(char));
-        configuration->user.class_group = cfg_getstr(cfg, "CLASS");
-        configuration->user.shell = (char*) malloc(strlen(cfg_getstr(cfg, "SHELL")) * sizeof(char));
-        configuration->user.shell = cfg_getstr(cfg, "SHELL");
+        strncpy(configuration->user.class_name, cfg_getstr(cfg, "CLASS"), CLASS_NAME_LENGTH);
+        strncpy(configuration->user.shell_name, cfg_getstr(cfg, "SHELL"), SHELL_NAME_LENGTH);
         configuration->user.expire = get_real_time_value(cfg_getint(cfg, "EXPIRE"));
         configuration->quota.limits.dqb_bhardlimit = cfg_getint(cfg, "BLOCKS_HARD_LIMIT");
         configuration->quota.limits.dqb_bsoftlimit = cfg_getint(cfg, "BLOCKS_SOFT_LIMIT");

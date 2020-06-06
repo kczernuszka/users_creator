@@ -91,20 +91,20 @@ char*** get_users_list (struct Users usersColumns, unsigned int number_of_users,
         char *name, *surname;
         int i, counter = 1;
         namesList = (char***) malloc(2*sizeof(char**));
-        namesList[0] = (char**) malloc(48 * number_of_users * sizeof(char*));
-        namesList[1] = (char**) malloc(48 * number_of_users * sizeof(char*));
+        namesList[0] = (char**) malloc(HEADER_LENGTH * number_of_users * sizeof(char*));
+        namesList[1] = (char**) malloc(HEADER_LENGTH * number_of_users * sizeof(char*));
 
         for (i = 0; i < number_of_users; ++i) {
                 ++nameRow;
                 ++surnameRow;
-		namesList[0][i] = (char*) malloc(48 * sizeof(char));
-                namesList[1][i] = (char*) malloc(48 * sizeof(char));
+		namesList[0][i] = (char*) malloc(HEADER_LENGTH * sizeof(char));
+                namesList[1][i] = (char*) malloc(HEADER_LENGTH * sizeof(char));
 
                 freexl_get_cell_value(xls_handler, nameRow, usersColumns.name.column, &nameValue);
                 freexl_get_cell_value(xls_handler, surnameRow, usersColumns.surname.column, &surnameValue);
 
-                if (strlen((char*) nameValue.value.text_value) < 21 && 
-                    strlen((char*) surnameValue.value.text_value) < 28 && 
+                if (strlen((char*) nameValue.value.text_value) < HEADER_LENGTH && 
+                    strlen((char*) surnameValue.value.text_value) < HEADER_LENGTH && 
                      chars_are_allowed(nameValue.value.text_value) &&
                       chars_are_allowed(surnameValue.value.text_value)) {
                         

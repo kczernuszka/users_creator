@@ -46,8 +46,8 @@ int main(int argc, char *argv[]) {
         }
         configuration = load_config(cfg);
 
-        users.name.text = configuration.column_name;
-        users.surname.text = configuration.column_surname;
+        strcpy(users.name.text, configuration->column_name);
+        strcpy(users.surname.text, configuration->column_surname);
 
         if ((numberOfSheet = load_file(argv[optind], &xls_handler)) == -1) {
                 printf("%s: File can not be loaded\n", argv[0]);

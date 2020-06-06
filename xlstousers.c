@@ -9,6 +9,7 @@ int main(int argc, char *argv[]) {
         struct Config *configuration;
         struct Worksheet dimensions;
         struct Headers headers;
+        struct User user;
         cfg_t *cfg;
         int status;
         int numberOfSheet;
@@ -85,8 +86,8 @@ int main(int argc, char *argv[]) {
         }
 
         for (userCounter = 0; userCounter < numberOfUsers; ++userCounter) {
-                login = create_user_login(namesList[0][userCounter], namesList[1][userCounter]);
-                home = create_home_directory(configuration->user.home, login);
-                printf("login: %s  home: %s\n", login, home);
+                strcpy(user.login, create_user_login(namesList[0][userCounter], namesList[1][userCounter]));
+                strcpy(user.home, create_home_directory(configuration->user.home, login));
+                printf("login: %s  home: %s\n", user.login, user.home);
         }
 }

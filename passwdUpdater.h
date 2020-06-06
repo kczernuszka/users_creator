@@ -13,12 +13,12 @@
 #define _S(x)	x ?: ""
 
 struct User {
-    char* login;
+    char login[LOGIN_LENGTH];
     unsigned int uid;
     unsigned int gid;
-    char *name;
-    char *home;
-    char *shell;
+    char class_name[CLASS_NAME_LENGTH];
+    char home[HOME_PATH_LENGTH];
+    char shell[SHELL_NAME_LENGTH];
 };
 
 int putpwent (const struct passwd *passwd, FILE *stream);

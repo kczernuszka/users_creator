@@ -17,7 +17,7 @@ int putpwent (const struct passwd *passwd, FILE *stream)
         return 0;
 }
 
-int passwd_update (struct User user, FILE *passwd_file, FILE *master_file)
+int passwd_update (struct User user, FILE *passwd_file)
 {
         struct passwd *p = (struct passwd*) malloc(sizeof(struct passwd));
         char password[PASSWORD_LENGTH];

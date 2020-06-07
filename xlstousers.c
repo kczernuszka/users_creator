@@ -1,3 +1,5 @@
+#include<unistd.h>
+
 #include "argumentsParser.h"
 #include "configParser.h"
 #include "passwdUpdater.h"
@@ -26,6 +28,7 @@ int main(int argc, char *argv[]) {
         char *home;
         unsigned int current_uid;
 
+
         status = parse_arguments(&settings, argc, argv);
         if(status != 0) {
                 if (status == 1)
@@ -36,6 +39,12 @@ int main(int argc, char *argv[]) {
                         printf("Unknown option character `\\x%x'\n", settings.wrongParameter);
                 if (status == 4)
                         printf("usage: xlstousers [-q] [-i] [-t] [-c configFile] xlsFile\n");
+                return -1;
+        }
+
+        uid_t uuid=getuid(), euid=geteuid();
+        if (uuid > 0 && uuid==euid) {
+                printf("sorry, you are not root\n");
                 return -1;
         }
 

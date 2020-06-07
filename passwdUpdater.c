@@ -20,11 +20,9 @@ int putpwent (const struct passwd *passwd, FILE *stream)
 int passwd_update (struct User user, FILE *passwd_file)
 {
         struct passwd *p = (struct passwd*) malloc(sizeof(struct passwd));
-        char password[PASSWORD_LENGTH];
-        create_random_string(password, PASSWORD_LENGTH);
 
         p->pw_name = user.login;
-        p->pw_passwd = password;
+        p->pw_passwd = "x";
         p->pw_uid = user.uid;
         p->pw_gid = user.gid;
         p->pw_gecos = user.class_name;

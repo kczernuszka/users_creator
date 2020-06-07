@@ -27,7 +27,7 @@ int passwd_update (struct User user, FILE *passwd_file, FILE *master_file)
         p->pw_passwd = password;
         p->pw_uid = user.uid;
         p->pw_gid = user.gid;
-        p->pw_gecos = user.name;
+        p->pw_gecos = user.class_name;
         p->pw_dir = user.home;
         p->pw_shell = user.shell;
 
@@ -70,4 +70,13 @@ void create_random_string(char *random_string, size_t length)
                 *random_string++ = charset[index];
         }
         *random_string = '\0';
+}
+
+int get_free_uid(unsigned int uid, unsigned int max_uid) {
+        while(getpwuid(uid) != NULL)
+                ++uid;
+        if(uid < max_uid)
+                return uid;
+        else
+                return -1;
 }

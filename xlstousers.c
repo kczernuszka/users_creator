@@ -92,8 +92,8 @@ int main(int argc, char *argv[]) {
         for (userCounter = 0; userCounter < numberOfUsers; ++userCounter) {
                 users_list[userCounter] = (struct User*) malloc(sizeof(struct User));
                 user.uid = get_free_uid(current_uid, configuration->uidsRange.max_uid);
-                if(user.uid != -1) {
-                        strcpy(user.login, create_user_login(namesList[0][userCounter], namesList[1][userCounter]));
+                strcpy(user.login, create_user_login(namesList[0][userCounter], namesList[1][userCounter]));
+                if(user.uid != -1 && user.login != NULL) {
                         strcpy(user.home, create_home_directory(configuration->user.home, user.login));
                         strcpy(user.class_name, configuration->user.class_name);
                         strcpy(user.shell, configuration->user.shell_name);

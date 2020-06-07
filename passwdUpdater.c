@@ -45,8 +45,15 @@ char* create_user_login(const char *name, const char *surname)
         strncat(login, name, 1);
         strcat(login, ".");
         strcat(login, surname);
+
+        while(getpwnam(login) != NULL) {
+                strcat(login, "1");
+        }
         
-        return login;
+        if(strlen(login) < 32)
+                return login;
+        else
+                return NULL;
 }
 
 char* create_home_directory(const char *home, const char *login)

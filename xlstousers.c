@@ -1,4 +1,5 @@
 #include<unistd.h>
+#include<sys/file.h>
 
 #include "argumentsParser.h"
 #include "configParser.h"
@@ -27,6 +28,7 @@ int main(int argc, char *argv[]) {
         char *login;
         char *home;
         unsigned int current_uid;
+        FILE *passwd_file;
 
 
         status = parse_arguments(&settings, argc, argv);
@@ -112,6 +114,25 @@ int main(int argc, char *argv[]) {
                 }
                 else {
                         printf("No free uid in range");
+                        return -1;
+                }
+        }
+
+        for (userCounter = 0; userCounter < numberOfUsers; ++userCounter) {
+                if ((passwd_file = fopen(PASSWD_FILE_PATH, "a")) != NULL) { 
+                        if (flock(fileno(passwd_file), LOCK_SH) != -1) {
+                                if (passwd_update(*users_list[userCounter], passwd_file) != 0) {
+                                        printf("Can't update passwd file\n");
+                                        return -1;
+                                }
+                        }
+                        else {
+                                printf("Passwd file is used\n");
+                                return -1;
+                        }
+                }
+                else {
+                        printf("Can't open passwd file\n");
                         return -1;
                 }
         }

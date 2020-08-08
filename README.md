@@ -1,2 +1,2 @@
 # xlstousers
-Linux tool to create users based on xml file.
+Linux tool to create users from xml file.
